@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 100957 2009-02-20T05:24:35.079315Z daisuke  $
+# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 100968 2009-02-20T06:50:47.156471Z daisuke  $
 
 package Catalyst::Model::Data::Localize;
 use Moose;
@@ -23,14 +23,18 @@ sub build_per_context_instance {
         $localize = $self->{localize} ||
             die "Could not create a Data::Localize instance";
     }
-    
-    my @langs = $localize->detect_languages_from_header(
-        $c->req->header('Accept-Language')
-    );
-    $c->log->debug("Setting localization language to @langs")
-        if $c->log->is_debug;
 
-    $localize->set_languages(@langs);
+    # if we're being called at the beginning of the context, then
+    # we won't have have access to $c->req...
+    eval {
+        my @langs = $localize->detect_languages_from_header(
+            $c->req->header('Accept-Language')
+        );
+        $c->log->debug("Setting localization language to @langs")
+            if $c->log->is_debug;
+
+        $localize->set_languages(@langs);
+    };
     return $localize;
 }
 
@@ -130,6 +134,8 @@ action chain:
     $loc->set_languages('ja'); # or whatever you prefer
     $loc->localize($key, @args);
 
+=head1 CONFIGURATION
+
 Configuration can be done via the 'Model::Data::Localize' slot:
 
     <Model::Data::Localize>
@@ -144,7 +150,15 @@ If you want Catalyst::Plugin::I18N compatible style method generation on the
 context object, look at Catalyst::Plugin::Data::Localize, which is just a 
 really thin wrapper over this module.
 
-=TODO
+Things are still experimental, but if you want to use this module with
+Catalyst::Controller::HTML::FormFu, you need to remove language_from_context:
+
+    <Controller::HTML::FormFu>
+        language_from_context 1   # <-- comment this out
+        localize_from_context 1
+    </Controller::HTML::FormFu>
+
+=head1 TODO
 
 Tests. Yes, I know.
 
