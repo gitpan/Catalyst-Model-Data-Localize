@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 100968 2009-02-20T06:50:47.156471Z daisuke  $
+# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 101679 2009-03-03T15:00:05.686954Z daisuke  $
 
 package Catalyst::Model::Data::Localize;
 use Moose;
@@ -7,11 +7,11 @@ use Data::Localize;
 extends 'Catalyst::Model';
 with 'Catalyst::Component::InstancePerContext';
 
-__PACKAGE__->meta->make_immutable;
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
 
 no Moose;
 
-our $VERSION = '0.00001';
+our $VERSION = '0.00002';
 our $AUTHORITY = 'cpan:DMAKI';
 
 sub build_per_context_instance {
@@ -30,8 +30,6 @@ sub build_per_context_instance {
         my @langs = $localize->detect_languages_from_header(
             $c->req->header('Accept-Language')
         );
-        $c->log->debug("Setting localization language to @langs")
-            if $c->log->is_debug;
 
         $localize->set_languages(@langs);
     };

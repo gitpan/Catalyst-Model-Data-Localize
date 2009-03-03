@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00002 04 Mar 2009
+  * Add language(), loc() for compatibility
+  * Remove debug statement
+
 0.00001 20 Feb 2009
   * Protect initialization code when/if the model gets called during
     setup time.

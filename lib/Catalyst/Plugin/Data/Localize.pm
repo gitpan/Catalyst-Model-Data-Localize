@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Plugin/Data/Localize.pm 100956 2009-02-20T05:22:15.845815Z daisuke  $
+# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Plugin/Data/Localize.pm 101680 2009-03-03T15:00:50.252097Z daisuke  $
 
 package Catalyst::Plugin::Data::Localize;
 use strict;
@@ -10,15 +10,24 @@ sub setup {
     my $self = shift;
     $self->NEXT::setup(@_);
 
-    $self->config->{'Plugin::Data::Localize'}{model} ||= 'Data::Localize';
+    $self->mk_classdata($_) for qw(localize_model);
+
+    $self->localize_model(
+        $self->config->{'Plugin::Data::Localize'}{model} || 'Data::Localize' );
 }
 
 sub localize {
     my $self = shift;
-
-    # somehow this seems like a waste to me
-    my $model = $self->config->{'Plugin::Data::Localize'}{model};
+    my $model = $self->localize_model;
     $self->model($model)->localize(@_);
+}
+
+*loc = \&localize;
+
+sub languages {
+    my $self = shift;
+    my $model = $self->localize_model;
+    $self->model($model)->languages(@_);
 }
 
 1;
