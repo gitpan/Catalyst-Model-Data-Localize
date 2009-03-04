@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 101679 2009-03-03T15:00:05.686954Z daisuke  $
+# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 101735 2009-03-04T02:47:12.285829Z daisuke  $
 
 package Catalyst::Model::Data::Localize;
 use Moose;
@@ -11,7 +11,7 @@ __PACKAGE__->meta->make_immutable(inline_constructor => 0);
 
 no Moose;
 
-our $VERSION = '0.00002';
+our $VERSION = '0.00003';
 our $AUTHORITY = 'cpan:DMAKI';
 
 sub build_per_context_instance {
@@ -148,19 +148,9 @@ If you want Catalyst::Plugin::I18N compatible style method generation on the
 context object, look at Catalyst::Plugin::Data::Localize, which is just a 
 really thin wrapper over this module.
 
-Things are still experimental, but if you want to use this module with
-Catalyst::Controller::HTML::FormFu, you need to remove language_from_context:
-
-    <Controller::HTML::FormFu>
-        language_from_context 1   # <-- comment this out
-        localize_from_context 1
-    </Controller::HTML::FormFu>
-
 =head1 TODO
 
 Tests. Yes, I know.
-
-There's a warnings from Moose. It's harmless, but it's annoying.
 
 =head1 AUTHOR
 

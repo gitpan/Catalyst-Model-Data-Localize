@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.00003 04 Mar 2009
+  * Doc fix. Catalyst::Plugin::Data::Localize /is/ now compatible with
+    Catalyst::Plugin::I18N (AFAIK), and so does not require any
+    special handling for Catalyst::Controller::HTML::FormFu, which it
+    previously stated.
+
 0.00002 04 Mar 2009
   * Add language(), loc() for compatibility
   * Remove debug statement
