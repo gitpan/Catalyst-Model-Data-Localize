@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00003 14 Apr 2009
+  * Add languages config parameter
+
 0.00003 04 Mar 2009
   * Doc fix. Catalyst::Plugin::Data::Localize /is/ now compatible with
     Catalyst::Plugin::I18N (AFAIK), and so does not require any

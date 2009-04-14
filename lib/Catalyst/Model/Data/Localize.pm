@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 101735 2009-03-04T02:47:12.285829Z daisuke  $
+# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 103862 2009-04-14T08:11:07.943260Z daisuke  $
 
 package Catalyst::Model::Data::Localize;
 use Moose;
@@ -11,7 +11,7 @@ __PACKAGE__->meta->make_immutable(inline_constructor => 0);
 
 no Moose;
 
-our $VERSION = '0.00003';
+our $VERSION = '0.00004';
 our $AUTHORITY = 'cpan:DMAKI';
 
 sub build_per_context_instance {
@@ -24,15 +24,19 @@ sub build_per_context_instance {
             die "Could not create a Data::Localize instance";
     }
 
-    # if we're being called at the beginning of the context, then
-    # we won't have have access to $c->req...
-    eval {
-        my @langs = $localize->detect_languages_from_header(
-            $c->req->header('Accept-Language')
-        );
+    if (my $language = $self->{languages}) {
+        $localize->set_languages(@$language);
+    } else {
+        # if we're being called at the beginning of the context, then
+        # we won't have have access to $c->req...
+        eval {
+            my @langs = $localize->detect_languages_from_header(
+                $c->req->header('Accept-Language')
+            );
 
-        $localize->set_languages(@langs);
-    };
+            $localize->set_languages(@langs);
+        };
+    }
     return $localize;
 }
 
@@ -86,7 +90,13 @@ sub __init_localizer {
         }
     }
 
+    if ($config->{languages}) {
+        if (ref $config->{languages} ne 'ARRAY') {
+            $config->{languages} = [ $config->{languages} ];
+        }
+    }
     $self->{localize} = Data::Localize->new(%$config);
+    $self->{languages} = $config->{languages};
 }
 
 1;
@@ -147,6 +157,14 @@ Configuration can be done via the 'Model::Data::Localize' slot:
 If you want Catalyst::Plugin::I18N compatible style method generation on the
 context object, look at Catalyst::Plugin::Data::Localize, which is just a 
 really thin wrapper over this module.
+
+C<languages> parameter is a bit special, as it overrides the default behavior
+to detect the desired language from HTTP headers.
+
+    # Always use ja
+    <Model::Data::Localize>
+        languages ja
+    </Model::Data::Localize>
 
 =head1 TODO
 
