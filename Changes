@@ -1,7 +1,10 @@
 Changes
 =======
 
-0.00003 14 Apr 2009
+0.00005 07 May 2009
+  * Make use of Class::C3::Adopt::NEXT
+
+0.00004 14 Apr 2009
   * Add languages config parameter
 
 0.00003 04 Mar 2009

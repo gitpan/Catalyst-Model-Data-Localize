@@ -1,4 +1,4 @@
-# $Id: /mirror/coderepos/lang/perl/Catalyst-Model-Data-Localize/trunk/lib/Catalyst/Model/Data/Localize.pm 103862 2009-04-14T08:11:07.943260Z daisuke  $
+# $Id: Localize.pm 33134 2009-05-07 05:39:19Z daisuke $
 
 package Catalyst::Model::Data::Localize;
 use Moose;
@@ -11,7 +11,7 @@ __PACKAGE__->meta->make_immutable(inline_constructor => 0);
 
 no Moose;
 
-our $VERSION = '0.00004';
+our $VERSION = '0.00005';
 our $AUTHORITY = 'cpan:DMAKI';
 
 sub build_per_context_instance {

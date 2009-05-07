@@ -1,15 +1,14 @@
-# $Id: Localize.pm 33133 2009-05-07 05:38:54Z daisuke $
+# $Id: Localize.pm 30745 2009-03-03 15:00:50Z daisuke $
 
 package Catalyst::Plugin::Data::Localize;
 use strict;
 use warnings;
 
 use Catalyst::Model::Data::Localize;
-use Class::C3::Adopt::NEXT;
 
 sub setup {
     my $self = shift;
-    $self->next::method(@_);
+    $self->NEXT::setup(@_);
 
     $self->mk_classdata($_) for qw(localize_model);
 

@@ -1,4 +1,5 @@
 Changes
+foo.txt
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -10,7 +11,9 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Catalyst/Model/Data/Localize.pm
 lib/Catalyst/Plugin/Data/Localize.pm
+lib/Catalyst/Plugin/Data/Localize.pm.orig
 Makefile.PL
+Makefile.PL.orig
 MANIFEST			This list of files
 META.yml
 t/01_basic.t
