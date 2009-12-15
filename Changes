@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00007 15 Dec 2009
+  * Enable "auto" by default. To surpress, set auto: 1 in your config
+
 0.00006 04 Aug 2009
   * localize() can now be passed arguments in the form of
         $loc->localize( $key, \@args )

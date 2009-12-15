@@ -9,7 +9,7 @@ __PACKAGE__->meta->make_immutable(inline_constructor => 0);
 
 no Moose;
 
-our $VERSION = '0.00006';
+our $VERSION = '0.00007';
 our $AUTHORITY = 'cpan:DMAKI';
 
 sub build_per_context_instance {
@@ -44,6 +44,11 @@ sub __init_localizer {
         $c->config->{'Model::Localize'} || 
         {}
     ;
+
+    # by default, set "auto" to true
+    if (! exists $config->{auto}) {
+        $config->{auto} = 1;
+    }
 
     my $localizers = $config->{localizers} ||= [];
     if (ref $localizers ne 'ARRAY') {
